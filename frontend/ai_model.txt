@@ -1,0 +1,7 @@
+ai_model/
+├── training/
+├── inference/
+├── preprocessing/
+├── hand_tracking/
+├── prediction/
+└── train.py

@@ -1,0 +1,10 @@
+backend/
+├── app/
+│   ├── api/
+│   ├── routes/
+│   ├── services/
+│   ├── utils/
+│   ├── config/
+│   └── main.py
+├── requirements.txt
+└── .env
