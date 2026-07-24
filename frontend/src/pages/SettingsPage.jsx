@@ -1,85 +1,76 @@
+/**
+ * SettingsPage.jsx
+ *
+ * Purpose: Configure AI translation preferences and inspect model/system status.
+ * Uses useSettings hook for unified settings state management.
+ */
+
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Settings, Zap, Volume2, Eye, Save, RefreshCw, Activity, Cpu, Check } from 'lucide-react';
+import { Settings, Volume2, Eye, Save, RefreshCw, Activity, Cpu, Check } from 'lucide-react';
 import { Card, Button, Badge } from '../components/common';
 import { getModelInfo } from '../api';
 import { toast } from '../utils/toast';
+import { useSettings } from '../hooks';
 
 export const SettingsPage = () => {
+  const { settings, updateSetting, saveSettings, resetSettings, isDirty } = useSettings();
   const [modelInfo, setModelInfo] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [pingLatency, setPingLatency] = useState(42);
-  const [settings, setSettings] = useState({
-    confidenceThreshold: 0.6,
-    autoSpeak: false,
-    saveHistory: true,
-    cameraResolution: '720p',
-    voicePitch: 1.0,
-  });
+  const [pingLatency, setPingLatency] = useState(null);
 
   useEffect(() => {
-    loadSavedSettings();
     loadModelInfo();
   }, []);
-
-  const loadSavedSettings = () => {
-    const saved = localStorage.getItem('signspeak_settings');
-    if (saved) {
-      try {
-        setSettings(prev => ({ ...prev, ...JSON.parse(saved) }));
-      } catch (err) {
-        console.error('Failed to parse saved settings:', err);
-      }
-    }
-  };
 
   const loadModelInfo = async () => {
     try {
       const response = await getModelInfo();
       setModelInfo(response.data);
-    } catch (error) {
-      console.log('Using default model configuration:', error);
+    } catch {
+      // Backend offline — use sensible defaults
       setModelInfo({
-        model_name: 'SignSpeak ASL-Net v2.0',
-        framework: 'TensorFlow / MediaPipe Hands',
-        status: 'Ready',
-        supported_classes: Array(50).fill(0),
+        model_name: 'SignSpeak ISL-Net v1.0',
+        framework: 'TensorFlow 2.x / MediaPipe Hands',
+        status: 'Demo Mode',
+        supported_classes: new Array(8).fill(null),
       });
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSettingChange = (key, value) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
+  const handleSave = () => {
+    try {
+      saveSettings();
+      toast.success('Settings saved successfully!');
+    } catch {
+      toast.error('Failed to save settings. Please try again.');
+    }
   };
 
-  const saveSettings = () => {
-    localStorage.setItem('signspeak_settings', JSON.stringify(settings));
-    toast.success('Settings saved successfully!');
-  };
-
-  const resetSettings = () => {
-    const defaults = {
-      confidenceThreshold: 0.6,
-      autoSpeak: false,
-      saveHistory: true,
-      cameraResolution: '720p',
-      voicePitch: 1.0,
-    };
-    setSettings(defaults);
-    localStorage.setItem('signspeak_settings', JSON.stringify(defaults));
+  const handleReset = () => {
+    resetSettings();
     toast.info('Settings reset to default configuration.');
   };
 
-  const measurePing = () => {
+  const measurePing = async () => {
     const start = performance.now();
-    setTimeout(() => {
-      const latency = Math.round(performance.now() - start + Math.random() * 15);
+    try {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/health`);
+      const latency = Math.round(performance.now() - start);
       setPingLatency(latency);
-      toast.info(`Ping latency tested: ${latency}ms`);
-    }, 150);
+      toast.info(`API response time: ${latency}ms`);
+    } catch {
+      const latency = Math.round(performance.now() - start);
+      setPingLatency(latency);
+      toast.warning(`Backend offline. Measured: ${latency}ms`);
+    }
   };
+
+  // ---------------------------------------------------------------------------
+  // Render
+  // ---------------------------------------------------------------------------
 
   return (
     <motion.main
@@ -88,6 +79,7 @@ export const SettingsPage = () => {
       className="min-h-screen bg-primary-950 pt-28 pb-16 bg-grid-pattern"
     >
       <div className="max-w-4xl mx-auto px-6">
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -96,17 +88,24 @@ export const SettingsPage = () => {
         >
           <div>
             <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-2">
-              Settings & <span className="bg-gradient-primary bg-clip-text text-transparent">Model Status</span>
+              Settings &{' '}
+              <span className="bg-gradient-primary bg-clip-text text-transparent">Model Status</span>
             </h1>
-            <p className="text-neutral-400 text-sm">Configure real-time translation preferences and inspect model diagnostics</p>
+            <p className="text-neutral-400 text-sm">
+              Configure real-time translation preferences and inspect model diagnostics
+            </p>
           </div>
 
           <div className="flex gap-3">
-            <Button variant="secondary" size="sm" onClick={resetSettings}>
+            <Button variant="secondary" size="sm" onClick={handleReset}>
               <RefreshCw size={16} /> Reset
             </Button>
-            <Button variant="primary" size="sm" onClick={saveSettings}>
-              <Save size={16} /> Save Changes
+            <Button
+              variant={isDirty ? 'primary' : 'secondary'}
+              size="sm"
+              onClick={handleSave}
+            >
+              <Save size={16} /> {isDirty ? 'Save Changes*' : 'Saved'}
             </Button>
           </div>
         </motion.div>
@@ -115,12 +114,13 @@ export const SettingsPage = () => {
         {loading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin mb-3">
-              <div className="w-8 h-8 border-3 border-accent-blue border-t-transparent rounded-full shadow-glow-sm"></div>
+              <div className="w-8 h-8 border-[3px] border-accent-blue border-t-transparent rounded-full shadow-glow-sm" />
             </div>
             <p className="text-sm font-mono text-neutral-400">Inspecting AI model status...</p>
           </div>
         ) : (
           <>
+            {/* AI Engine Status */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -144,33 +144,40 @@ export const SettingsPage = () => {
                 <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="glass p-4 rounded-xl border border-white/10">
                     <p className="text-xs text-neutral-400 mb-1">Model Name</p>
-                    <p className="font-bold text-white text-sm truncate">{modelInfo?.model_name || 'SignSpeak ASL-Net'}</p>
+                    <p className="font-bold text-white text-sm truncate">
+                      {modelInfo?.model_name ?? 'SignSpeak ISL-Net'}
+                    </p>
                   </div>
-
                   <div className="glass p-4 rounded-xl border border-white/10">
-                    <p className="text-xs text-neutral-400 mb-1">Framework Engine</p>
-                    <p className="font-bold text-white text-sm">{modelInfo?.framework || 'TensorFlow'}</p>
+                    <p className="text-xs text-neutral-400 mb-1">Framework</p>
+                    <p className="font-bold text-white text-sm">{modelInfo?.framework ?? 'TensorFlow'}</p>
                   </div>
-
                   <div className="glass p-4 rounded-xl border border-white/10">
-                    <p className="text-xs text-neutral-400 mb-1">Inference Latency</p>
+                    <p className="text-xs text-neutral-400 mb-1">API Latency</p>
                     <div className="flex items-center justify-between">
-                      <p className="font-bold text-accent-emerald text-sm">{pingLatency}ms</p>
-                      <button onClick={measurePing} title="Test Ping" className="text-neutral-400 hover:text-white">
+                      <p className="font-bold text-accent-emerald text-sm">
+                        {pingLatency !== null ? `${pingLatency}ms` : '—'}
+                      </p>
+                      <button
+                        onClick={measurePing}
+                        title="Measure latency"
+                        className="text-neutral-400 hover:text-white transition"
+                      >
                         <Activity size={14} />
                       </button>
                     </div>
                   </div>
-
                   <div className="glass p-4 rounded-xl border border-white/10">
                     <p className="text-xs text-neutral-400 mb-1">Supported Signs</p>
-                    <p className="font-bold text-accent-blue text-sm">{modelInfo?.supported_classes?.length || 50}+ Gestures</p>
+                    <p className="font-bold text-accent-blue text-sm">
+                      {modelInfo?.supported_classes?.length ?? 8}+ Gestures
+                    </p>
                   </div>
                 </div>
               </Card>
             </motion.div>
 
-            {/* Translation Preferences Card */}
+            {/* Translation Preferences */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -183,77 +190,136 @@ export const SettingsPage = () => {
                 </h2>
 
                 <div className="space-y-6">
-                  {/* Threshold Slider */}
+
+                  {/* Confidence Threshold Slider */}
                   <div className="glass p-5 rounded-xl border border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-white font-semibold text-sm">Confidence Threshold Cutoff</span>
-                        <p className="text-xs text-neutral-400">Ignore predictions below this probability percentage</p>
+                        <p className="text-xs text-neutral-400">
+                          Ignore predictions below this probability
+                        </p>
                       </div>
                       <span className="text-lg font-extrabold text-accent-blue font-mono">
                         {(settings.confidenceThreshold * 100).toFixed(0)}%
                       </span>
                     </div>
-
                     <input
+                      id="confidenceThreshold"
                       type="range"
                       min="0.3"
                       max="0.95"
                       step="0.05"
                       value={settings.confidenceThreshold}
-                      onChange={(e) => handleSettingChange('confidenceThreshold', parseFloat(e.target.value))}
+                      onChange={(e) => updateSetting('confidenceThreshold', parseFloat(e.target.value))}
                       className="w-full h-2 bg-primary-950 rounded-lg appearance-none cursor-pointer accent-accent-blue"
                     />
                   </div>
 
                   {/* Auto Speak Toggle */}
-                  <div className="glass p-5 rounded-xl border border-white/10 flex items-center justify-between cursor-pointer" onClick={() => handleSettingChange('autoSpeak', !settings.autoSpeak)}>
+                  <div
+                    className="glass p-5 rounded-xl border border-white/10 flex items-center justify-between cursor-pointer"
+                    onClick={() => updateSetting('autoSpeak', !settings.autoSpeak)}
+                  >
                     <div>
                       <p className="text-white font-semibold text-sm flex items-center gap-2">
                         <Volume2 size={16} className="text-accent-purple" /> Auto-Speak Audio Translations
                       </p>
-                      <p className="text-xs text-neutral-400">Automatically read predicted words aloud using speech synthesis</p>
+                      <p className="text-xs text-neutral-400">
+                        Automatically read predicted words aloud using speech synthesis
+                      </p>
                     </div>
-
                     <input
+                      id="autoSpeak"
                       type="checkbox"
                       checked={settings.autoSpeak}
-                      onChange={(e) => handleSettingChange('autoSpeak', e.target.checked)}
-                      className="w-5 h-5 accent-accent-blue cursor-pointer"
+                      onChange={(e) => updateSetting('autoSpeak', e.target.checked)}
                       onClick={(e) => e.stopPropagation()}
+                      className="w-5 h-5 accent-accent-blue cursor-pointer"
                     />
                   </div>
 
                   {/* Save History Toggle */}
-                  <div className="glass p-5 rounded-xl border border-white/10 flex items-center justify-between cursor-pointer" onClick={() => handleSettingChange('saveHistory', !settings.saveHistory)}>
+                  <div
+                    className="glass p-5 rounded-xl border border-white/10 flex items-center justify-between cursor-pointer"
+                    onClick={() => updateSetting('saveHistory', !settings.saveHistory)}
+                  >
                     <div>
                       <p className="text-white font-semibold text-sm">Save Translation History</p>
-                      <p className="text-xs text-neutral-400">Record all translations to browser history and CSV export log</p>
+                      <p className="text-xs text-neutral-400">
+                        Record all translations to browser history and enable CSV export
+                      </p>
                     </div>
-
                     <input
+                      id="saveHistory"
                       type="checkbox"
                       checked={settings.saveHistory}
-                      onChange={(e) => handleSettingChange('saveHistory', e.target.checked)}
-                      className="w-5 h-5 accent-accent-blue cursor-pointer"
+                      onChange={(e) => updateSetting('saveHistory', e.target.checked)}
                       onClick={(e) => e.stopPropagation()}
+                      className="w-5 h-5 accent-accent-blue cursor-pointer"
+                    />
+                  </div>
+
+                  {/* Camera Resolution */}
+                  <div className="glass p-5 rounded-xl border border-white/10 space-y-3">
+                    <div>
+                      <span className="text-white font-semibold text-sm">Camera Resolution</span>
+                      <p className="text-xs text-neutral-400">Higher resolution improves detection accuracy</p>
+                    </div>
+                    <div className="flex gap-2">
+                      {['480p', '720p', '1080p'].map((res) => (
+                        <button
+                          key={res}
+                          onClick={() => updateSetting('cameraResolution', res)}
+                          className={`flex-1 py-2 rounded-xl text-xs font-bold border transition ${
+                            settings.cameraResolution === res
+                              ? 'bg-gradient-primary text-white border-white/30 shadow-glow-sm'
+                              : 'glass text-neutral-400 hover:text-white'
+                          }`}
+                        >
+                          {res}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Voice Pitch Slider */}
+                  <div className="glass p-5 rounded-xl border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-white font-semibold text-sm">Voice Pitch</span>
+                        <p className="text-xs text-neutral-400">Adjust speech synthesis pitch level</p>
+                      </div>
+                      <span className="text-sm font-extrabold text-accent-purple font-mono">
+                        {settings.voicePitch.toFixed(1)}
+                      </span>
+                    </div>
+                    <input
+                      id="voicePitch"
+                      type="range"
+                      min="0.5"
+                      max="2.0"
+                      step="0.1"
+                      value={settings.voicePitch}
+                      onChange={(e) => updateSetting('voicePitch', parseFloat(e.target.value))}
+                      className="w-full h-2 bg-primary-950 rounded-lg appearance-none cursor-pointer accent-accent-purple"
                     />
                   </div>
                 </div>
               </Card>
             </motion.div>
 
-            {/* Bottom Actions */}
+            {/* Bottom Action Row */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               className="flex gap-4"
             >
-              <Button size="lg" className="flex-1 py-4 shadow-glow-md" onClick={saveSettings}>
-                <Check size={18} /> Save Settings
+              <Button size="lg" className="flex-1 py-4 shadow-glow-md" onClick={handleSave}>
+                <Check size={18} /> {isDirty ? 'Save Settings' : 'All Saved'}
               </Button>
-              <Button variant="outline" size="lg" className="flex-1 py-4" onClick={resetSettings}>
+              <Button variant="outline" size="lg" className="flex-1 py-4" onClick={handleReset}>
                 Reset Defaults
               </Button>
             </motion.div>
@@ -265,4 +331,3 @@ export const SettingsPage = () => {
 };
 
 export default SettingsPage;
-
