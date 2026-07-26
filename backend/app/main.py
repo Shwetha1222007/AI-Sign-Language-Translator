@@ -28,6 +28,7 @@ from app.database import (
     clear_all_translations,
     get_translation_count,
 )
+from app.inference import engine
 
 # ---------------------------------------------------------------------------
 # Logging Setup
@@ -143,12 +144,13 @@ def health_check() -> dict:
 
 @app.get("/model/info", tags=["AI Model"])
 def model_info() -> dict:
-    """Returns static model metadata. Will be dynamic once the real model is integrated."""
+    """Returns dynamic model metadata from the inference engine."""
+    classes = list(engine.classes_map.values()) if engine.is_ready else []
     return {
         "model_name": "SignSpeak ISL-Net v1.0",
-        "framework": "TensorFlow 2.x / MediaPipe Hands",
-        "status": "placeholder — real model integration in Feature 3",
-        "supported_classes": ["Hello", "Thank You", "Help", "Yes", "No", "Peace", "I Love You", "Friend"],
+        "framework": "scikit-learn / MediaPipe Hands",
+        "status": "online" if engine.is_ready else "offline - missing artifacts",
+        "supported_classes": classes,
         "input_shape": "42 landmark features (21 keypoints × 2D x/y)",
     }
 
@@ -160,10 +162,7 @@ def model_info() -> dict:
 @app.post("/predict", response_model=PredictionResponse, tags=["AI Model"])
 def predict(request: PredictionRequest) -> PredictionResponse:
     """
-    Accepts a base64 image frame, runs sign inference, and saves the result to SQLite.
-
-    NOTE: Real MediaPipe + TensorFlow inference is implemented in Feature 2 & 3.
-    This endpoint currently uses placeholder inference logic but saves real records.
+    Accepts a base64 image frame, runs real AI sign inference, and saves the result to SQLite.
     """
     logger.info(
         "Prediction request received. Frame provided: %s, Threshold: %.2f",
@@ -171,23 +170,14 @@ def predict(request: PredictionRequest) -> PredictionResponse:
         request.confidence_threshold,
     )
 
-    # -----------------------------------------------------------------------
-    # Placeholder Inference
-    # Replace this block in Feature 3 with real MediaPipe + TensorFlow logic.
-    # -----------------------------------------------------------------------
-    placeholder_labels = ["Hello", "Thank You", "Help", "Yes", "No", "Peace", "I Love You", "Friend"]
-    placeholder_confidence = 0.92
+    if not request.image_url:
+        raise HTTPException(status_code=400, detail="image_url is required for prediction")
 
-    if request.image_url:
-        # In the future: decode base64 → OpenCV → MediaPipe → TensorFlow
-        # For now: deterministic hash of image length for reproducibility
-        image_len = len(request.image_url)
-        label_index = image_len % len(placeholder_labels)
-        prediction = placeholder_labels[label_index]
-        confidence = round(0.88 + (image_len % 12) * 0.01, 4)  # 0.88–0.99
-    else:
-        prediction = placeholder_labels[0]  # Default: "Hello"
-        confidence = placeholder_confidence
+    prediction, confidence, msg = engine.predict(request.image_url)
+    
+    if prediction is None:
+        # Inference failed (e.g. no hand detected)
+        raise HTTPException(status_code=400, detail=msg)
 
     # Reject if below user-defined threshold
     if confidence < request.confidence_threshold:

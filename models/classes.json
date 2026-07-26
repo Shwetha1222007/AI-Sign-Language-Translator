@@ -1,0 +1,30 @@
+{
+  "classes": [
+    "A",
+    "B",
+    "C",
+    "Friend",
+    "Hello",
+    "Help",
+    "I Love You",
+    "No",
+    "Peace",
+    "Thank You",
+    "Yes"
+  ],
+  "index_to_label": {
+    "0": "A",
+    "1": "B",
+    "2": "C",
+    "3": "Friend",
+    "4": "Hello",
+    "5": "Help",
+    "6": "I Love You",
+    "7": "No",
+    "8": "Peace",
+    "9": "Thank You",
+    "10": "Yes"
+  },
+  "total_classes": 11,
+  "num_features": 42
+}

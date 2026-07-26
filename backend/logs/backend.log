@@ -3,3 +3,5 @@
 2026-07-21 20:09:04,526 - INFO - signspeak_backend - Prediction request received
 2026-07-21 20:59:16,116 - INFO - signspeak_backend - Health check requested
 2026-07-22 20:32:49,004 - INFO - signspeak_backend - Health check requested
+2026-07-26 21:07:29,547 - INFO - signspeak_backend.database - Database initialized at: D:\AI-Sign-Language-Translator\backend\signspeak.db
+2026-07-26 21:07:29,548 - INFO - signspeak_backend - Database ready. Existing records: 0

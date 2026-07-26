@@ -1,0 +1,33 @@
+# Dockerfile.backend
+# Use Python 3.10 slim as the base image for optimal size and compatibility
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies required for OpenCV and MediaPipe
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first to leverage Docker layer caching
+COPY requirements.txt .
+COPY backend/requirements.txt ./backend/
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the entire project context (respecting .dockerignore if present)
+# We copy the root because `models/` and `dataset/` live alongside `backend/`
+COPY . .
+
+# Set PYTHONPATH so Python can find the 'backend' and 'ai_model' packages
+ENV PYTHONPATH=/app
+ENV PORT=8000
+
+# Expose the API port
+EXPOSE 8000
+
+# Run the FastAPI server using Uvicorn
+CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
