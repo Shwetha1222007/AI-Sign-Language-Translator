@@ -1,0 +1,62 @@
+# Python Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python Cache / Bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.dll
+*.egg
+*.egg-info/
+dist/
+build/
+.Python
+pip-log.txt
+
+# Environment Variables / Secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets.json
+
+# Logs
+*.log
+logs/
+backend/logs/
+
+# Node / React / Frontend
+node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend Build Output
+frontend/dist/
+frontend/build/
+.next/
+out/
+
+# OS and Editor Artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+
+# Testing / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Database / Misc
+*.sqlite3
+*.db
+*.bak
