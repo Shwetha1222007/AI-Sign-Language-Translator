@@ -16,7 +16,13 @@ from typing import Tuple, Optional
 import cv2
 import numpy as np
 import joblib
-import mediapipe as mp
+
+try:
+    import mediapipe as mp
+except Exception as exc:  # pragma: no cover - dependency may be missing in some environments
+    mp = None
+    logger = logging.getLogger("signspeak_backend.inference")
+    logger.warning("MediaPipe import failed: %s", exc)
 
 logger = logging.getLogger("signspeak_backend.inference")
 
@@ -30,21 +36,29 @@ class SignLanguageEngine:
         self.model = None
         self.classes_map = {}
         self.is_ready = False
+        self.mp_hands = None
         
         try:
-            # Initialize MediaPipe Hands
-            self.mp_hands = mp.solutions.hands.Hands(
-                static_image_mode=True,
-                max_num_hands=1,
-                min_detection_confidence=0.5
-            )
+            self._initialize_media_pipe()
             self.load_artifacts()
-        except AttributeError as e:
-            logger.error(f"MediaPipe solutions API not available in this build: {e}")
-            self.is_ready = False
         except Exception as e:
             logger.error(f"Error initializing MediaPipe: {e}")
             self.is_ready = False
+
+    def _initialize_media_pipe(self) -> None:
+        """Initialize the MediaPipe hand tracker when the supported API is available."""
+        if mp is None:
+            raise RuntimeError("MediaPipe is not installed or importable in this environment")
+
+        if not hasattr(mp, "solutions") or not hasattr(mp.solutions, "hands"):
+            raise RuntimeError("MediaPipe hand tracking API is not available in this environment")
+
+        self.mp_hands = mp.solutions.hands.Hands(
+            static_image_mode=True,
+            max_num_hands=1,
+            min_detection_confidence=0.5,
+        )
+        logger.info("Initialized legacy MediaPipe hands solution")
 
     def load_artifacts(self):
         """Load trained model and classes mapping."""
@@ -67,7 +81,14 @@ class SignLanguageEngine:
     def normalize_landmarks(self, hand_landmarks) -> np.ndarray:
         """Extract and normalize 42 features from MediaPipe landmarks."""
         raw_coords = []
-        for lm in hand_landmarks.landmark:
+        if hasattr(hand_landmarks, "landmark"):
+            landmarks = hand_landmarks.landmark
+        elif hasattr(hand_landmarks, "landmarks"):
+            landmarks = hand_landmarks.landmarks
+        else:
+            raise ValueError("Unknown hand landmark format")
+
+        for lm in landmarks:
             raw_coords.append([lm.x, lm.y])
 
         coords_np = np.array(raw_coords, dtype=np.float32)
@@ -109,12 +130,14 @@ class SignLanguageEngine:
 
         # Convert BGR to RGB for MediaPipe
         rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        results = self.mp_hands.process(rgb_img)
 
-        if not results.multi_hand_landmarks:
+        if self.mp_hands is None:
+            return None, 0.0, "MediaPipe hand tracker is not available."
+
+        results = self.mp_hands.process(rgb_img)
+        if not getattr(results, "multi_hand_landmarks", None):
             return None, 0.0, "No hand detected in the frame."
 
-        # Process the first detected hand
         hand_landmarks = results.multi_hand_landmarks[0]
         features = self.normalize_landmarks(hand_landmarks)
 
