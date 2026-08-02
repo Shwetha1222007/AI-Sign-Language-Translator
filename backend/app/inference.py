@@ -19,8 +19,12 @@ import joblib
 
 try:
     import mediapipe as mp
+    from mediapipe.solutions import hands as mp_hands
+    from mediapipe.solutions.hands import Hands
 except Exception as exc:  # pragma: no cover - dependency may be missing in some environments
     mp = None
+    mp_hands = None
+    Hands = None
     logger = logging.getLogger("signspeak_backend.inference")
     logger.warning("MediaPipe import failed: %s", exc)
 
@@ -46,19 +50,17 @@ class SignLanguageEngine:
             self.is_ready = False
 
     def _initialize_media_pipe(self) -> None:
-        """Initialize the MediaPipe hand tracker when the supported API is available."""
-        if mp is None:
-            raise RuntimeError("MediaPipe is not installed or importable in this environment")
+        """Initialize the MediaPipe hand tracker using the stable solutions API."""
+        if mp is None or Hands is None:
+            raise RuntimeError("MediaPipe Hands API is not available in this environment")
 
-        if not hasattr(mp, "solutions") or not hasattr(mp.solutions, "hands"):
-            raise RuntimeError("MediaPipe hand tracking API is not available in this environment")
-
-        self.mp_hands = mp.solutions.hands.Hands(
+        self.mp_hands = Hands(
             static_image_mode=True,
             max_num_hands=1,
             min_detection_confidence=0.5,
+            min_tracking_confidence=0.5,
         )
-        logger.info("Initialized legacy MediaPipe hands solution")
+        logger.info("Initialized MediaPipe Hands detector")
 
     def load_artifacts(self):
         """Load trained model and classes mapping."""
@@ -134,11 +136,15 @@ class SignLanguageEngine:
         if self.mp_hands is None:
             return None, 0.0, "MediaPipe hand tracker is not available."
 
+        if self.mp_hands is None:
+            return None, 0.0, "MediaPipe hand tracker is not available."
+
         results = self.mp_hands.process(rgb_img)
         if not getattr(results, "multi_hand_landmarks", None):
             return None, 0.0, "No hand detected in the frame."
 
         hand_landmarks = results.multi_hand_landmarks[0]
+
         features = self.normalize_landmarks(hand_landmarks)
 
         # Run model inference

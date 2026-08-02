@@ -1,0 +1,482 @@
+﻿
+.venv\Lib\site-packages\mediapipe\tasks\metadata\image_segmenter_metadata_schem
+a_py_generated.py:5:# namespace: tasks
+.venv\Lib\site-packages\mediapipe\tasks\metadata\object_detector_metadata_schem
+a_py_generated.py:5:# namespace: tasks
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:215:   
+ VAR_HANDLE = 142
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:397:   
+ VarHandleOptions = 111
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:638:   
+ if unionType == BuiltinOptions().VarHandleOptions:
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:639:   
+     return VarHandleOptionsT.InitFromBuf(table.Bytes, table.Pos)
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15338:c
+lass VarHandleOptions(object):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15344: 
+       x = VarHandleOptions()
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15349: 
+   def GetRootAsVarHandleOptions(cls, buf, offset=0):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15353: 
+   def VarHandleOptionsBufferHasIdentifier(cls, buf, offset, 
+size_prefixed=False):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15356: 
+   # VarHandleOptions
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15360: 
+   # VarHandleOptions
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15367: 
+   # VarHandleOptions
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15374:d
+ef VarHandleOptionsStart(builder):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15377:d
+ef VarHandleOptionsAddContainer(builder, container):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15380:d
+ef VarHandleOptionsAddSharedName(builder, sharedName):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15383:d
+ef VarHandleOptionsEnd(builder):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15388:c
+lass VarHandleOptionsT(object):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15390: 
+   # VarHandleOptionsT
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15397: 
+       varHandleOptions = VarHandleOptions()
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15398: 
+       varHandleOptions.Init(buf, pos)
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15399: 
+       return cls.InitFromObj(varHandleOptions)
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15407: 
+   def InitFromObj(cls, varHandleOptions):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15408: 
+       x = VarHandleOptionsT()
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15409: 
+       x._UnPack(varHandleOptions)
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15412: 
+   # VarHandleOptionsT
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15413: 
+   def _UnPack(self, varHandleOptions):
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15414: 
+       if varHandleOptions is None:
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15416: 
+       self.container = varHandleOptions.Container()
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15417: 
+       self.sharedName = varHandleOptions.SharedName()
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15419: 
+   # VarHandleOptionsT
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15425: 
+       VarHandleOptionsStart(builder)
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15427: 
+           VarHandleOptionsAddContainer(builder, container)
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15429: 
+           VarHandleOptionsAddSharedName(builder, sharedName)
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15430: 
+       varHandleOptions = VarHandleOptionsEnd(builder)
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:15431: 
+       return varHandleOptions
+.venv\Lib\site-packages\mediapipe\tasks\metadata\schema_py_generated.py:17303: 
+       self.builtinOptions = None  # type: Union[None, Conv2DOptionsT, 
+DepthwiseConv2DOptionsT, ConcatEmbeddingsOptionsT, LSHProjectionOptionsT, 
+Pool2DOptionsT, SVDFOptionsT, RNNOptionsT, FullyConnectedOptionsT, 
+SoftmaxOptionsT, ConcatenationOptionsT, AddOptionsT, L2NormOptionsT, 
+LocalResponseNormalizationOptionsT, LSTMOptionsT, ResizeBilinearOptionsT, 
+CallOptionsT, ReshapeOptionsT, SkipGramOptionsT, SpaceToDepthOptionsT, 
+EmbeddingLookupSparseOptionsT, MulOptionsT, PadOptionsT, GatherOptionsT, 
+BatchToSpaceNDOptionsT, SpaceToBatchNDOptionsT, TransposeOptionsT, 
+ReducerOptionsT, SubOptionsT, DivOptionsT, SqueezeOptionsT, 
+SequenceRNNOptionsT, StridedSliceOptionsT, ExpOptionsT, TopKV2OptionsT, 
+SplitOptionsT, LogSoftmaxOptionsT, CastOptionsT, DequantizeOptionsT, 
+MaximumMinimumOptionsT, ArgMaxOptionsT, LessOptionsT, NegOptionsT, 
+PadV2OptionsT, GreaterOptionsT, GreaterEqualOptionsT, LessEqualOptionsT, 
+SelectOptionsT, SliceOptionsT, TransposeConvOptionsT, SparseToDenseOptionsT, 
+TileOptionsT, ExpandDimsOptionsT, EqualOptionsT, NotEqualOptionsT, 
+ShapeOptionsT, PowOptionsT, ArgMinOptionsT, FakeQuantOptionsT, PackOptionsT, 
+LogicalOrOptionsT, OneHotOptionsT, LogicalAndOptionsT, LogicalNotOptionsT, 
+UnpackOptionsT, FloorDivOptionsT, SquareOptionsT, ZerosLikeOptionsT, 
+FillOptionsT, BidirectionalSequenceLSTMOptionsT, 
+BidirectionalSequenceRNNOptionsT, UnidirectionalSequenceLSTMOptionsT, 
+FloorModOptionsT, RangeOptionsT, ResizeNearestNeighborOptionsT, 
+LeakyReluOptionsT, SquaredDifferenceOptionsT, MirrorPadOptionsT, AbsOptionsT, 
+SplitVOptionsT, UniqueOptionsT, ReverseV2OptionsT, AddNOptionsT, 
+GatherNdOptionsT, CosOptionsT, WhereOptionsT, RankOptionsT, 
+ReverseSequenceOptionsT, MatrixDiagOptionsT, QuantizeOptionsT, 
+MatrixSetDiagOptionsT, HardSwishOptionsT, IfOptionsT, WhileOptionsT, 
+DepthToSpaceOptionsT, NonMaxSuppressionV4OptionsT, 
+NonMaxSuppressionV5OptionsT, ScatterNdOptionsT, SelectV2OptionsT, 
+DensifyOptionsT, SegmentSumOptionsT, BatchMatMulOptionsT, CumsumOptionsT, 
+CallOnceOptionsT, BroadcastToOptionsT, Rfft2dOptionsT, Conv3DOptionsT, 
+HashtableOptionsT, HashtableFindOptionsT, HashtableImportOptionsT, 
+HashtableSizeOptionsT, VarHandleOptionsT, ReadVariableOptionsT, 
+AssignVariableOptionsT, RandomOptionsT, BucketizeOptionsT, GeluOptionsT, 
+DynamicUpdateSliceOptionsT, UnsortedSegmentProdOptionsT, 
+UnsortedSegmentMaxOptionsT, UnsortedSegmentMinOptionsT, 
+UnsortedSegmentSumOptionsT, ATan2OptionsT, SignOptionsT, BitcastOptionsT, 
+BitwiseXorOptionsT, RightShiftOptionsT]
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\core\audio_task_running_mo
+de.py:14:"""The running mode of MediaPipe Audio Tasks."""
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\core\audio_task_running_mo
+de.py:19:from mediapipe.tasks.python.core.optional_dependencies import 
+doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\core\audio_task_running_mo
+de.py:28:class AudioTaskRunningMode(enum.Enum):
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\core\audio_task_running_mo
+de.py:29:  """MediaPipe audio task running mode.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\core\audio_task_running_mo
+de.py:32:    AUDIO_CLIPS: The mode for running a mediapipe audio task on 
+independent
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\core\audio_task_running_mo
+de.py:34:    AUDIO_STREAM: The mode for running a mediapipe audio task on an 
+audio
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\core\audio_task_running_mo
+de.py:47:    ), f'Unsupported audio task running mode: {self}'
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:14:"""
+MediaPipe audio classifier task."""
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:20:fro
+m mediapipe.tasks.python.audio.core import audio_record
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:21:fro
+m mediapipe.tasks.python.audio.core import audio_task_running_mode
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:22:fro
+m mediapipe.tasks.python.components.containers import audio_data
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:23:fro
+m mediapipe.tasks.python.components.containers import audio_data_c
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:24:fro
+m mediapipe.tasks.python.components.containers import classification_result
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:25:fro
+m mediapipe.tasks.python.components.containers import classification_result_c
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:26:fro
+m mediapipe.tasks.python.components.processors import classifier_options as 
+classifier_options_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:27:fro
+m mediapipe.tasks.python.components.processors import classifier_options_c
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:28:fro
+m mediapipe.tasks.python.core import async_result_dispatcher
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:29:fro
+m mediapipe.tasks.python.core import base_options as base_options_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:30:fro
+m mediapipe.tasks.python.core import base_options_c
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:31:fro
+m mediapipe.tasks.python.core import mediapipe_c_bindings
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:32:fro
+m mediapipe.tasks.python.core import mediapipe_c_utils
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:33:fro
+m mediapipe.tasks.python.core import serial_dispatcher
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:34:fro
+m mediapipe.tasks.python.core.optional_dependencies import doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:38:_Ba
+seOptions = base_options_lib.BaseOptions
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:39:_Ru
+nningMode = audio_task_running_mode.AudioTaskRunningMode
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:66:   
+   ('base_options', base_options_c.MpBaseOptionsC),
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:76:   
+   base_options: base_options_c.MpBaseOptionsC,
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:128:  
+"""Options for the audio classifier task.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:131:  
+  base_options: Base options for the audio classifier task.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:132:  
+  running_mode: The running mode of the task. Default to the audio clips mode.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:133:  
+    Audio classifier task has two running modes: 1) The audio clips mode for
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:156:  
+base_options: _BaseOptions
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:192:  
+_handle: ctypes.c_void_p
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:199:  
+    handle: ctypes.c_void_p,
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:206:  
+    lib: The serial dispatcher for the audio classifier task.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:207:  
+    handle: The handle to the audio classifier task.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:208:  
+    dispatcher: The async result dispatcher for the audio classifier task.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:212:  
+  self._handle = handle
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:235:  
+  base_options = _BaseOptions(model_asset_path=model_path)
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:248:  
+    options: Options for the audio classifier task.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:287:  
+  classifier_handle_ptr = ctypes.c_void_p()
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:289:  
+      ctypes.byref(ctypes_options), ctypes.byref(classifier_handle_ptr)
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:293:  
+      handle=classifier_handle_ptr,
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:350:  
+      self._handle,
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:397:  
+      self._handle,
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:410:  
+  Note that MediaPipe Audio tasks will up/down sample automatically to fit the
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:431:  
+  """Shuts down the MediaPipe task instance."""
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:432:  
+  if self._handle:
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:433:  
+    self._lib.MpAudioClassifierClose(self._handle)  # pyrefly: 
+ignore[missing-attribute]
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:434:  
+    self._handle = None  # pyrefly: ignore[bad-assignment]
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:443:  
+  """Shuts down the MediaPipe task instance on exit of the context manager.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\audio_classifier.py:451:  
+    RuntimeError: If the MediaPipe TextClassifier task failed to close.
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\__init__.py:15:"""MediaPip
+e Tasks Audio API."""
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\__init__.py:17:import 
+mediapipe.tasks.python.audio.core
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\__init__.py:18:import 
+mediapipe.tasks.python.audio.audio_classifier
+.venv\Lib\site-packages\mediapipe\tasks\python\audio\__init__.py:23:RunningMode
+ = core.audio_task_running_mode.AudioTaskRunningMode
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\core\base_visio
+n_benchmark_api.py:17:VISION_TEST_DATA_DIR = 'mediapipe/tasks/testdata/vision'
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\core\base_visio
+n_benchmark_api.py:20:def benchmark_task(func, image, n_iterations):
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\core\base_visio
+n_benchmark_api.py:21:  """Collect inference times for a given task after 
+benchmarking.
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\core\base_visio
+n_benchmark_api.py:24:      func: The task function used for benchmarking.
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\core\base_visio
+n_benchmark_api.py:35:    # Run the method for the task (e.g., classify)
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\benchmark.py:18
+:from mediapipe.tasks.python.benchmark import benchmark_utils as bu
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\benchmark.py:19
+:from mediapipe.tasks.python.benchmark.vision.core import 
+base_vision_benchmark_api
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\benchmark.py:20
+:from mediapipe.tasks.python.core import base_options
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\benchmark.py:28
+:        This function should contain the logic of the task to be benchmarked 
+and
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\benchmark.py:81
+:      base_options.BaseOptions.Delegate.CPU,
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\vision\benchmark.py:82
+:      base_options.BaseOptions.Delegate.GPU,
+.venv\Lib\site-packages\mediapipe\tasks\python\benchmark\benchmark_utils.py:14:
+"""Benchmark utils for MediaPipe Tasks."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\audio_data
+.py:22:from mediapipe.tasks.python.components.containers import audio_data_c
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\audio_data
+.py:23:from mediapipe.tasks.python.core.optional_dependencies import 
+doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\audio_data
+.py:39:  """MediaPipe Tasks' audio container."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\bounding_b
+ox.py:19:from mediapipe.tasks.python.components.containers import rect_c as 
+rect_c_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\bounding_b
+ox.py:20:from mediapipe.tasks.python.core.optional_dependencies import 
+doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\category.p
+y:19:from mediapipe.tasks.python.components.containers import category_c as 
+category_c_module
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\category.p
+y:20:from mediapipe.tasks.python.core.optional_dependencies import doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\category.p
+y:29:  Typically it's used as the result of classification tasks.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\classifica
+tion_result.py:19:from mediapipe.tasks.python.components.containers import 
+category as category_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\classifica
+tion_result.py:20:from mediapipe.tasks.python.components.containers import 
+classification_result_c
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\classifica
+tion_result.py:21:from mediapipe.tasks.python.core.optional_dependencies 
+import doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\classifica
+tion_result_c.py:19:from mediapipe.tasks.python.components.containers import 
+category_c
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+.py:19:from mediapipe.tasks.python.components.containers import bounding_box 
+as bounding_box_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+.py:20:from mediapipe.tasks.python.components.containers import category as 
+category_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+.py:21:from mediapipe.tasks.python.components.containers import category_c as 
+category_c_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+.py:22:from mediapipe.tasks.python.components.containers import detections_c 
+as detections_c_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+.py:23:from mediapipe.tasks.python.components.containers import keypoint as 
+keypoint_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+.py:24:from mediapipe.tasks.python.core.optional_dependencies import 
+doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+_c.py:18:from mediapipe.tasks.python.components.containers import category_c
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+_c.py:19:from mediapipe.tasks.python.components.containers import keypoint_c
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\detections
+_c.py:20:from mediapipe.tasks.python.components.containers import rect_c
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\embedding_
+result.py:21:from mediapipe.tasks.python.components.containers import 
+embedding_result_c
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\embedding_
+result.py:22:from mediapipe.tasks.python.core.optional_dependencies import 
+doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\keypoint.p
+y:19:from mediapipe.tasks.python.components.containers import keypoint_c as 
+keypoint_c_lib
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\keypoint.p
+y:20:from mediapipe.tasks.python.core.optional_dependencies import doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:14:"""Landmark data class."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:19:from mediapipe.tasks.python.components.containers import landmark_c as 
+landmark_c_module
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:20:from mediapipe.tasks.python.core.optional_dependencies import doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:24:class Landmark:
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:25:  """A landmark that can have 1 to 3 dimensions.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:33:    visibility: Landmark visibility. Should stay unset if not supported. 
+Float
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:34:      score of whether landmark is visible or occluded by other objects.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:35:      Landmark considered as invisible also if it is not present on the 
+screen
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:38:    presence: Landmark presence. Should stay unset if not supported. 
+Float score
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:39:      of whether landmark is present on the scene (located within scene 
+bounds).
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:41:      argument of sigmoid function to get landmark presence probability.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:42:    name: The name of the landmark.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:54:  def from_ctypes(cls, c_struct: landmark_c_module.MpLandmarkC) -> 
+'Landmark':
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:55:    """Creates a `Landmark` object from the given ctypes struct."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:56:    return Landmark(
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:67:class NormalizedLandmark:
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:68:  """A normalized version of above Landmark proto.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:76:    visibility: Landmark visibility. Should stay unset if not supported. 
+Float
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:77:      score of whether landmark is visible or occluded by other objects.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:78:      Landmark considered as invisible also if it is not present on the 
+screen
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:81:    presence: Landmark presence. Should stay unset if not supported. 
+Float score
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:82:      of whether landmark is present on the scene (located within scene 
+bounds).
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:84:      argument of sigmoid function to get landmark presence probability.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:85:    name: The name of the landmark.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:98:      cls, c_struct: landmark_c_module.MpNormalizedLandmarkC
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:99:  ) -> 'NormalizedLandmark':
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:100:    """Creates a `NormalizedLandmark` object from the given ctypes 
+struct."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark.p
+y:101:    return NormalizedLandmark(
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:15:"""C types for MpLandmark."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:20:class MpLandmarkC(ctypes.Structure):
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:21:  """The ctypes struct for MpLandmark."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:35:class MpLandmarksC(ctypes.Structure):
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:36:  """The ctypes struct for a list of MpLandmarks."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:39:      ('landmarks', ctypes.POINTER(MpLandmarkC)),
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:40:      ('landmarks_count', ctypes.c_uint32),
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:44:class MpNormalizedLandmarkC(ctypes.Structure):
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:45:  """The ctypes struct for MpNormalizedLandmark."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:59:class MpNormalizedLandmarksC(ctypes.Structure):
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:60:  """The ctypes struct for a list of MpNormalizedLandmarks."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:63:      ('landmarks', ctypes.POINTER(MpNormalizedLandmarkC)),
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_c
+.py:64:      ('landmarks_count', ctypes.c_uint32),
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:14:"""Landmarks Detection Result data class."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:19:from mediapipe.tasks.python.components.containers import 
+category as category_module
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:20:from mediapipe.tasks.python.components.containers import 
+landmark as landmark_module
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:21:from mediapipe.tasks.python.components.containers import 
+rect as rect_module
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:24:_NormalizedLandmark = landmark_module.NormalizedLandmark
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:25:_Landmark = landmark_module.Landmark
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:29:class LandmarksDetectionResult:
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:30:  """Represents the landmarks detection result.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:33:    landmarks: A list of `NormalizedLandmark` objects.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:35:    world_landmarks: A list of `Landmark` objects.
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:39:  landmarks: Optional[List[_NormalizedLandmark]]
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\landmark_d
+etection_result.py:41:  world_landmarks: Optional[List[_Landmark]]
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\matrix_c.p
+y:21:from mediapipe.tasks.python.core.optional_dependencies import doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\rect.py:19
+:from mediapipe.tasks.python.components.containers import rect_c as 
+rect_c_module
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\rect.py:20
+:from mediapipe.tasks.python.core.optional_dependencies import doc_controls
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:15:"""MediaPipe Tasks Components Containers API."""
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:17:import mediapipe.tasks.python.components.containers.audio_data
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:18:import mediapipe.tasks.python.components.containers.bounding_box
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:19:import mediapipe.tasks.python.components.containers.category
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:20:import mediapipe.tasks.python.components.containers.classification_result
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:21:import mediapipe.tasks.python.components.containers.detections
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:22:import mediapipe.tasks.python.components.containers.embedding_result
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:23:import mediapipe.tasks.python.components.containers.landmark
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:24:import 
+mediapipe.tasks.python.components.containers.landmark_detection_result
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:25:import mediapipe.tasks.python.components.containers.rect
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:37:Landmark = landmark.Landmark
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:38:NormalizedLandmark = landmark.NormalizedLandmark
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:39:LandmarksDetectionResult = 
+landmark_detection_result.LandmarksDetectionResult
+.venv\Lib\site-packages\mediapipe\tasks\python\components\containers\__init__.p
+y:50:del landmark
+
+

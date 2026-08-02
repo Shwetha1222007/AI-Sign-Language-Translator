@@ -20,7 +20,7 @@ import logging
 import os
 from pathlib import Path
 
-from app.database import (
+from .database import (
     init_db,
     insert_translation,
     get_all_translations,
@@ -28,7 +28,7 @@ from app.database import (
     clear_all_translations,
     get_translation_count,
 )
-from app.inference import engine
+from .inference import engine
 
 # ---------------------------------------------------------------------------
 # Logging Setup
